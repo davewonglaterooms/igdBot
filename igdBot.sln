@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{35E3D9
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "igdBot.Tests", "..\igdBot.Tests\igdBot.Tests.csproj", "{7C2A5216-CD83-42B0-8208-9F0ECF652EEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{8BD27BEF-48B2-43DC-85C1-7AFBF4E04F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BD27BEF-48B2-43DC-85C1-7AFBF4E04F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BD27BEF-48B2-43DC-85C1-7AFBF4E04F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2A5216-CD83-42B0-8208-9F0ECF652EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2A5216-CD83-42B0-8208-9F0ECF652EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2A5216-CD83-42B0-8208-9F0ECF652EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2A5216-CD83-42B0-8208-9F0ECF652EEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

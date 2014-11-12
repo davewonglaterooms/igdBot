@@ -3,3 +3,4 @@ Game Started with player test with tokens 100 and limit 50
 Command: NoCommand, Data: NoData
 Command: NoCommand, Data: NoData
 Command: CARD, Data: A
+Command: CARD, Data: A
