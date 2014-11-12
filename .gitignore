@@ -8,6 +8,8 @@
 *.sln.docstates
 *.cache
 *.v11
+*.dll
+*.pdb
 
 # Build results
 [Dd]ebug/
