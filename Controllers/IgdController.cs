@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using log4net;
-using log4net.Core;
 
 namespace igdBot.Controllers
 {
@@ -14,6 +12,18 @@ namespace igdBot.Controllers
         [HttpGet]
         public string Move()
         {
+            using (var sr = new StreamReader(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Open)))
+            {
+                var card = "";
+                card = sr.ReadLine();
+
+                if (card.Contains("A"))
+                    return "BET:200";
+
+                if (card.Contains("10") || card.Contains("J") || card.Contains("Q") || card.Contains("K"))
+                    return "BET:5";
+            }
+
             return "BET";
         }
 
@@ -38,9 +48,34 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Update(string COMMAND, string DATA)
         {
+            switch (COMMAND)
+            {
+                case "RECEIVE_BUTTON":
+                    break;
+                case "POST_BLIND":
+                    break;
+                case "CARD":
+                    StoreCard(DATA);
+                    break;
+                case "OPPONENT_MOVE":
+                    break;
+                case "RECEIVE_CHIPS":
+                    break;
+                case "OPPONENT_CARD":
+                    break;
+            }
+
             Log("Update", string.Format("Command: {0}, Data: {1}", COMMAND ?? "NoCommand", DATA ?? "NoData"));
 
             return "done";
+        }
+
+        private void StoreCard(string data)
+        {
+            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Create)))
+            {
+                sr.WriteLine(data);
+            }
         }
 
         [HttpGet]
