@@ -20,14 +20,33 @@ namespace igdBot.Controllers
         {
             var move = "BET";
 
+            var opponent = GetOpponent();
             int oppBet = GetOppoMove();
 
-            var blind = GetBlindValue();
+            if (opponent.ToLower().Contains("pat-bot") && oppBet > 8)
+            {
+                move = "FOLD";
+            }
+            else
+            {
+                var blind = GetBlindValue();
 
-            move = oppBet > 30 ? "FOLD" : MoveBasedOnCard(blind);
-
+                move = oppBet > 30 ? "FOLD" : MoveBasedOnCard(blind);
+            }
+            
             logger.Info(string.Format("Move Played: {0}", move));
             return move;
+        }
+
+        private string GetOpponent()
+        {
+            using (var sr = new StreamReader(System.IO.File.Open(OppoNamePath, FileMode.Open)))
+            {
+                var oppoName = sr.ReadLine();
+                if (oppoName == null)
+                    oppoName = "";
+                return oppoName;
+            }
         }
 
         private string MoveBasedOnCard(bool blind)
