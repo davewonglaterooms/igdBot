@@ -38,8 +38,6 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Update(string COMMAND, string DATA)
         {
-            if (COMMAND == "")
-
             Log("Update", string.Format("Command: {0}, Data: {1}", COMMAND ?? "NoCommand", DATA ?? "NoData"));
 
             return "done";
