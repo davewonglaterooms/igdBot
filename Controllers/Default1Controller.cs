@@ -17,9 +17,7 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Start(string OPPONENT_NAME, int STARTING_CHIP_COUNT, int HAND_LIMIT)
         {
-            Log(string.Format("Game Started with player {0} with tokens {1} and limit {2}", OPPONENT_NAME, STARTING_CHIP_COUNT, HAND_LIMIT));
-            
-            return "start";
+            return "starttest";
         }
 
         private void Log(string command)
