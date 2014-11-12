@@ -38,18 +38,25 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Update(string COMMAND, string DATA)
         {
+            if (COMMAND == "")
+
             Log("Update", string.Format("Command: {0}, Data: {1}", COMMAND ?? "NoCommand", DATA ?? "NoData"));
 
             return "done";
         }
 
         [HttpGet]
-        
         public JsonResult GetLogs()
         {
-            return new JsonResult()
+            var logContent = "";
+            using (var sr = new StreamReader(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LogCommands.txt"), FileMode.Open)))
             {
-                //Data = JsonConvert.SerializeObject(_log),
+                logContent = sr.ReadToEnd();
+            }
+            
+            return new JsonResult
+            {
+                Data = logContent,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
