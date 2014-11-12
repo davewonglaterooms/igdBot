@@ -10,6 +10,7 @@
 *.v11
 *.dll
 *.pdb
+[Ll]og[Cc]ommands.txt
 
 # Build results
 [Dd]ebug/
