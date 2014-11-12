@@ -11,5 +11,17 @@ namespace igdBot.Controllers
         {
             return "BET";
         }
+
+        [HttpPost]
+        public string Start()
+        {
+            return "done";
+        }
+
+        [HttpPost]
+        public string Update()
+        {
+            return "done";
+        }
     }
 }

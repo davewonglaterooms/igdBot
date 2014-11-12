@@ -24,3 +24,29 @@ c:\users\dave\documents\visual studio 2012\Projects\igdBot\igdBot\bin\System.Web
 c:\users\dave\documents\visual studio 2012\Projects\igdBot\igdBot\obj\Debug\igdBot.csprojResolveAssemblyReference.cache
 c:\users\dave\documents\visual studio 2012\Projects\igdBot\igdBot\obj\Debug\igdBot.dll
 c:\users\dave\documents\visual studio 2012\Projects\igdBot\igdBot\obj\Debug\igdBot.pdb
+C:\igdBot\bin\igdBot.dll
+C:\igdBot\bin\igdBot.pdb
+C:\igdBot\bin\Microsoft.Web.Infrastructure.dll
+C:\igdBot\bin\Newtonsoft.Json.dll
+C:\igdBot\bin\System.Net.Http.Formatting.dll
+C:\igdBot\bin\System.Web.Helpers.dll
+C:\igdBot\bin\System.Web.Http.dll
+C:\igdBot\bin\System.Web.Http.WebHost.dll
+C:\igdBot\bin\System.Web.Mvc.dll
+C:\igdBot\bin\System.Web.Razor.dll
+C:\igdBot\bin\System.Web.WebPages.Deployment.dll
+C:\igdBot\bin\System.Web.WebPages.dll
+C:\igdBot\bin\System.Web.WebPages.Razor.dll
+C:\igdBot\bin\Microsoft.Web.Infrastructure.xml
+C:\igdBot\bin\System.Net.Http.Formatting.xml
+C:\igdBot\bin\System.Web.Helpers.xml
+C:\igdBot\bin\System.Web.Http.xml
+C:\igdBot\bin\System.Web.Http.WebHost.xml
+C:\igdBot\bin\System.Web.Mvc.xml
+C:\igdBot\bin\System.Web.Razor.xml
+C:\igdBot\bin\System.Web.WebPages.xml
+C:\igdBot\bin\System.Web.WebPages.Deployment.xml
+C:\igdBot\bin\System.Web.WebPages.Razor.xml
+C:\igdBot\obj\Debug\igdBot.csprojResolveAssemblyReference.cache
+C:\igdBot\obj\Debug\igdBot.dll
+C:\igdBot\obj\Debug\igdBot.pdb
