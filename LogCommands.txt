@@ -5,3 +5,8 @@ Command: NoCommand, Data: NoData
 Command: CARD, Data: A
 Command: CARD, Data: A
 Command: CARD, Data: A
+Command: CARD, Data: A
+Command: CARD, Data: J
+Opponent_Name:FATBOTSLIM, Starting_Chip_Count:100, Hand_Limit:300
+Opponent_Name:FATBOTSLIM, Starting_Chip_Count:100, Hand_Limit:300
+Command: CARD, Data: J

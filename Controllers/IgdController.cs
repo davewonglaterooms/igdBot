@@ -12,24 +12,34 @@ namespace igdBot.Controllers
         [HttpGet]
         public string Move()
         {
+            var move = "BET";
             using (var sr = new StreamReader(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Open)))
             {
                 var card = "";
                 card = sr.ReadLine();
 
+                if (card == null)
+                    return move;
+
                 if (card.Contains("A"))
-                    return "BET:200";
+                    move = "BET:200";
 
                 if (card.Contains("10") || card.Contains("J") || card.Contains("Q") || card.Contains("K"))
-                    return "BET:5";
+                    move = "BET:5";
             }
 
-            return "BET";
+            logger.Info(string.Format("Move Played: {0}", move));
+            return move;
         }
 
         [HttpPost]
         public string Start(string OPPONENT_NAME, int STARTING_CHIP_COUNT, int HAND_LIMIT)
         {
+            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Create)))
+            {
+                sr.Write("");
+            }
+
             string msg = string.Format("Opponent_Name:{0}, Starting_Chip_Count:{1}, Hand_Limit:{2}", OPPONENT_NAME, STARTING_CHIP_COUNT, HAND_LIMIT);
             Log("start", msg);
             return "starttest";
