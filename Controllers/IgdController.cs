@@ -168,16 +168,6 @@ namespace igdBot.Controllers
             {
                 sr.Write("");
             }
-
-            using (var sr = new StreamWriter(System.IO.File.Open(OppoNamePath, FileMode.Create)))
-            {
-                sr.Write("");
-            }
-
-            using (var sr = new StreamWriter(System.IO.File.Open(ChipsLeftPath, FileMode.Create)))
-            {
-                sr.Write("");
-            }
         }
 
         private void Log(string action, string command)
@@ -217,7 +207,7 @@ namespace igdBot.Controllers
         private void StoreChipsLeft(string chips)
         {
             var existing = 0;
-            using (var sr = new StreamReader(System.IO.File.Open(ChipsLeftPath, FileMode.Open)))
+            using (var sr = new StreamReader(System.IO.File.Open(ChipsLeftPath, FileMode.OpenOrCreate)))
             {
                 var existingChips = sr.ReadLine();
 
