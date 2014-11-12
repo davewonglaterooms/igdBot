@@ -11,17 +11,92 @@ namespace igdBot.Controllers
 
         private string BlindStorePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt");
         private string CardStorePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt");
+        private string OppoMovePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OppoMoveStore.txt");
 
         [HttpGet]
         public string Move()
         {
             var move = "BET";
-            var blind = false;
 
+            int oppBet = GetOppoMove();
+
+            var blind = GetBlindValue();
+
+            if (oppBet > 30)
+                move = "FOLD";
+            else
+            {
+                if (System.IO.File.Exists(CardStorePath))
+                {
+                    using (var sr = new StreamReader(System.IO.File.Open(CardStorePath,
+                                                                         FileMode.Open)))
+                    {
+                        var card = "";
+                        card = sr.ReadLine();
+
+                        if (card == null)
+                            return move;
+
+                        if (card.Contains("A"))
+                            move = "BET:30";
+
+                        if (card.Contains("Q") || card.Contains("K"))
+                            move = "BET:5";
+
+                        int cardNum;
+                        if (int.TryParse(card, out cardNum))
+                        {
+                            if (blind)
+                            {
+                                if (cardNum < 5)
+                                    move = "FOLD";
+                            }
+                            else
+                            {
+                                if (cardNum < 9)
+                                    move = "FOLD";
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            logger.Info(string.Format("Move Played: {0}", move));
+            return move;
+        }
+
+        private int GetOppoMove()
+        {
+            if (System.IO.File.Exists(OppoMovePath))
+            {
+                using (var sr = new StreamReader(System.IO.File.Open(OppoMovePath,
+                                                                     FileMode.Open)))
+                {
+                    var oppMove = sr.ReadLine();
+
+                    if (oppMove != null)
+                    {
+                        oppMove = oppMove.Replace("BET", "").Replace(":", "");
+
+                        int oppBet;
+                        if (int.TryParse(oppMove, out oppBet))
+                        {
+                            return oppBet;
+                        }
+                    }
+                }
+            }
+            return 2;
+        }
+
+        private bool GetBlindValue()
+        {
+            var blind = false;
             if (System.IO.File.Exists(BlindStorePath))
             {
                 using (var sr = new StreamReader(System.IO.File.Open(BlindStorePath,
-                                                FileMode.Open)))
+                                                                     FileMode.Open)))
                 {
                     var blindText = "";
                     blindText = sr.ReadLine();
@@ -35,44 +110,7 @@ namespace igdBot.Controllers
                     }
                 }
             }
-
-            if (System.IO.File.Exists(CardStorePath))
-            {
-                using (var sr = new StreamReader(System.IO.File.Open(CardStorePath,
-                                                FileMode.Open)))
-                {
-                    var card = "";
-                    card = sr.ReadLine();
-
-                    if (card == null)
-                        return move;
-
-                    if (card.Contains("A"))
-                        move = "BET:30";
-
-                    if (card.Contains("Q") || card.Contains("K"))
-                        move = "BET:5";
-
-                    int cardNum;
-                    if (int.TryParse(card, out cardNum))
-                    {
-                        if (blind)
-                        {
-                            if (cardNum < 5)
-                                move = "FOLD";
-                        }
-                        else
-                        {
-                            if (cardNum < 9)
-                                move = "FOLD";
-                        }
-
-                    }
-                }
-            }
-
-            logger.Info(string.Format("Move Played: {0}", move));
-            return move;
+            return blind;
         }
 
         [HttpPost]
@@ -84,6 +122,11 @@ namespace igdBot.Controllers
             }
 
             using (var sr = new StreamWriter(System.IO.File.Open(BlindStorePath, FileMode.Create)))
+            {
+                sr.Write("");
+            }
+
+            using (var sr = new StreamWriter(System.IO.File.Open(OppoMovePath, FileMode.Create)))
             {
                 sr.Write("");
             }
@@ -113,6 +156,7 @@ namespace igdBot.Controllers
                     StoreCard(DATA);
                     break;
                 case "OPPONENT_MOVE":
+                    StoreOppoMove(DATA);
                     break;
                 case "RECEIVE_CHIPS":
                     break;
@@ -123,6 +167,14 @@ namespace igdBot.Controllers
             Log("Update", string.Format("Command: {0}, Data: {1}", COMMAND ?? "NoCommand", DATA ?? "NoData"));
 
             return "done";
+        }
+
+        private void StoreOppoMove(string data)
+        {
+            using (var sr = new StreamWriter(System.IO.File.Open(OppoMovePath, FileMode.Create)))
+            {
+                sr.WriteLine(data);
+            }
         }
 
         private void StoreBlind(bool blind)
