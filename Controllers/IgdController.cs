@@ -20,7 +20,7 @@ namespace igdBot.Controllers
 
             if (System.IO.File.Exists(BlindStorePath))
             {
-                using (var sr = new StreamReader(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt"),
+                using (var sr = new StreamReader(System.IO.File.Open(BlindStorePath,
                                                 FileMode.Open)))
                 {
                     var blindText = "";
@@ -38,8 +38,7 @@ namespace igdBot.Controllers
 
             if (System.IO.File.Exists(CardStorePath))
             {
-                using (var sr = new StreamReader(
-                    System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"),
+                using (var sr = new StreamReader(System.IO.File.Open(CardStorePath,
                                                 FileMode.Open)))
                 {
                     var card = "";
@@ -49,7 +48,7 @@ namespace igdBot.Controllers
                         return move;
 
                     if (card.Contains("A"))
-                        move = "BET:200";
+                        move = "BET:30";
 
                     if (card.Contains("Q") || card.Contains("K"))
                         move = "BET:5";
@@ -79,12 +78,12 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Start(string OPPONENT_NAME, int STARTING_CHIP_COUNT, int HAND_LIMIT)
         {
-            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Create)))
+            using (var sr = new StreamWriter(System.IO.File.Open(CardStorePath, FileMode.Create)))
             {
                 sr.Write("");
             }
 
-            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt"), FileMode.Create)))
+            using (var sr = new StreamWriter(System.IO.File.Open(BlindStorePath, FileMode.Create)))
             {
                 sr.Write("");
             }
@@ -97,11 +96,6 @@ namespace igdBot.Controllers
         private void Log(string action, string command)
         {
             logger.Info(command);
-
-            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LogCommands.txt"), FileMode.Append)))
-            {
-                sr.WriteLine(command);
-            }
         }
 
         [HttpPost]
@@ -133,7 +127,7 @@ namespace igdBot.Controllers
 
         private void StoreBlind(bool blind)
         {
-            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt"), FileMode.Create)))
+            using (var sr = new StreamWriter(System.IO.File.Open(BlindStorePath, FileMode.Create)))
             {
                 sr.WriteLine(blind ? "BLIND" : "");
             }
@@ -141,7 +135,7 @@ namespace igdBot.Controllers
 
         private void StoreCard(string data)
         {
-            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Create)))
+            using (var sr = new StreamWriter(System.IO.File.Open(CardStorePath, FileMode.Create)))
             {
                 sr.WriteLine(data);
             }
