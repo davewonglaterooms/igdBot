@@ -119,7 +119,7 @@ namespace igdBot.Controllers
                     }
                 }
             }
-            return 100;
+            return 2;
         }
 
         private bool GetBlindValue()
