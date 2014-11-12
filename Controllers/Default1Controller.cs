@@ -15,7 +15,7 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Start()
         {
-            return "start";
+            return "starttest";
         }
 
         [HttpPost]
