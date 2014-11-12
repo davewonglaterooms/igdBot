@@ -17,6 +17,8 @@ namespace igdBot.Controllers
         [HttpPost]
         public string Start(string OPPONENT_NAME, int STARTING_CHIP_COUNT, int HAND_LIMIT)
         {
+            string msg = string.Format("Opponent_Name:{0}, Starting_Chip_Count:{1}, Hand_Limit:{2}", OPPONENT_NAME, STARTING_CHIP_COUNT, HAND_LIMIT)
+            Log(msg);
             return "starttest";
         }
 
