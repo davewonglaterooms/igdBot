@@ -44,18 +44,24 @@ namespace igdBot.Controllers
                         return move;
 
                     if (card.Contains("A"))
-                        move = "BET:30";
+                        move = "BET:500";
 
                     if (card.Contains("Q") || card.Contains("K"))
-                        move = "BET:5";
+                        move = "BET:30";
+
+                    if (card.Contains("10") || card.Contains("J"))
+                        move = "BET:20";
 
                     int cardNum;
                     if (int.TryParse(card, out cardNum))
                     {
                         if (blind)
                         {
-                            if (cardNum < 5)
+                            if (cardNum < 6)
                                 move = "FOLD";
+
+                            if (cardNum < 9)
+                                move = "CALL";
                         }
                         else
                         {
