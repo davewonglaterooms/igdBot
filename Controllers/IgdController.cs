@@ -224,6 +224,8 @@ namespace igdBot.Controllers
 
         private void StoreOppoName(string name)
         {
+            Log("Opponent", string.Format("Opponent Name: {0}", name));
+
             using (var sr = new StreamWriter(System.IO.File.Open(OppoNamePath, FileMode.Create)))
             {
                 sr.WriteLine(name);
