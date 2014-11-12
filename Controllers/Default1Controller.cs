@@ -29,8 +29,10 @@ namespace igdBot.Controllers
         }
 
         [HttpPost]
-        public string Update()
+        public string Update(string CARD, string OPPONENT_MOVE, string RECEIVE_CHIPS, string OPPONENT_CARD)
         {
+            Log(string.Format("Card: {0}, Opp last move: {1}, chips received {2}, opp card: {3}", CARD, OPPONENT_MOVE, RECEIVE_CHIPS, OPPONENT_CARD));
+
             return "done";
         }
     }
