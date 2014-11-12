@@ -9,7 +9,7 @@ namespace igdBot.Controllers
         [HttpGet]
         public string Move()
         {
-            return "Get";
+            return "BET";
         }
     }
 }
