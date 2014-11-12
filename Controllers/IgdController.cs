@@ -60,12 +60,12 @@ namespace igdBot.Controllers
                             if (cardNum < 6)
                                 move = "FOLD";
 
-                            if (cardNum < 9)
+                            if (cardNum < 10)
                                 move = "CALL";
                         }
                         else
                         {
-                            if (cardNum < 9)
+                            if (cardNum < 10)
                                 move = "FOLD";
                         }
                     }
