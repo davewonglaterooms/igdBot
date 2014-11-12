@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.IO;
+using System.Web.Mvc;
 using Newtonsoft.Json;
 using log4net;
 using log4net.Core;
@@ -27,10 +29,10 @@ namespace igdBot.Controllers
         {
             logger.Info(command);
 
-            //using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LogCommands.txt"), FileMode.Append)))
-            //{
-            //    sr.WriteLine(command);
-            //}
+            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LogCommands.txt"), FileMode.Append)))
+            {
+                sr.WriteLine(command);
+            }
         }
 
         [HttpPost]
