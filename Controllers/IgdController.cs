@@ -40,6 +40,11 @@ namespace igdBot.Controllers
 
         private string GetOpponent()
         {
+            if (!System.IO.File.Exists(OppoNamePath))
+            {
+                return "";
+            }
+
             using (var sr = new StreamReader(System.IO.File.Open(OppoNamePath, FileMode.Open)))
             {
                 var oppoName = sr.ReadLine();
