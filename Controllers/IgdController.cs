@@ -9,23 +9,67 @@ namespace igdBot.Controllers
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(IgdController));
 
+        private string BlindStorePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt");
+        private string CardStorePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt");
+
         [HttpGet]
         public string Move()
         {
             var move = "BET";
-            using (var sr = new StreamReader(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Open)))
+            var blind = false;
+
+            if (System.IO.File.Exists(BlindStorePath))
             {
-                var card = "";
-                card = sr.ReadLine();
+                using (var sr = new StreamReader(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt"),
+                                                FileMode.Open)))
+                {
+                    var blindText = "";
+                    blindText = sr.ReadLine();
 
-                if (card == null)
-                    return move;
+                    if (blindText != null)
+                    {
+                        if (blindText.Contains("BLIND"))
+                        {
+                            blind = true;
+                        }
+                    }
+                }
+            }
 
-                if (card.Contains("A"))
-                    move = "BET:200";
+            if (System.IO.File.Exists(CardStorePath))
+            {
+                using (var sr = new StreamReader(
+                    System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"),
+                                                FileMode.Open)))
+                {
+                    var card = "";
+                    card = sr.ReadLine();
 
-                if (card.Contains("10") || card.Contains("J") || card.Contains("Q") || card.Contains("K"))
-                    move = "BET:5";
+                    if (card == null)
+                        return move;
+
+                    if (card.Contains("A"))
+                        move = "BET:200";
+
+                    if (card.Contains("Q") || card.Contains("K"))
+                        move = "BET:5";
+
+                    int cardNum;
+                    if (int.TryParse(card, out cardNum))
+                    {
+                        if (blind)
+                        {
+                            if (cardNum < 5)
+                                move = "FOLD";
+                        }
+                        else
+                        {
+                            if (cardNum < 9)
+                                move = "FOLD";
+                        }
+
+                    }
+                }
             }
 
             logger.Info(string.Format("Move Played: {0}", move));
@@ -36,6 +80,11 @@ namespace igdBot.Controllers
         public string Start(string OPPONENT_NAME, int STARTING_CHIP_COUNT, int HAND_LIMIT)
         {
             using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CardStore.txt"), FileMode.Create)))
+            {
+                sr.Write("");
+            }
+
+            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt"), FileMode.Create)))
             {
                 sr.Write("");
             }
@@ -61,8 +110,10 @@ namespace igdBot.Controllers
             switch (COMMAND)
             {
                 case "RECEIVE_BUTTON":
+                    StoreBlind(false);
                     break;
                 case "POST_BLIND":
+                    StoreBlind(true);
                     break;
                 case "CARD":
                     StoreCard(DATA);
@@ -78,6 +129,14 @@ namespace igdBot.Controllers
             Log("Update", string.Format("Command: {0}, Data: {1}", COMMAND ?? "NoCommand", DATA ?? "NoData"));
 
             return "done";
+        }
+
+        private void StoreBlind(bool blind)
+        {
+            using (var sr = new StreamWriter(System.IO.File.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BlindStore.txt"), FileMode.Create)))
+            {
+                sr.WriteLine(blind ? "BLIND" : "");
+            }
         }
 
         private void StoreCard(string data)

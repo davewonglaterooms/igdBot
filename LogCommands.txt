@@ -10,3 +10,12 @@ Command: CARD, Data: J
 Opponent_Name:FATBOTSLIM, Starting_Chip_Count:100, Hand_Limit:300
 Opponent_Name:FATBOTSLIM, Starting_Chip_Count:100, Hand_Limit:300
 Command: CARD, Data: J
+Opponent_Name:FATBOTSLIM, Starting_Chip_Count:100, Hand_Limit:300
+Command: CARD, Data: J
+Command: CARD, Data: A
+Command: CARD, Data: Q
+Command: CARD, Data: 8
+Command: CARD, Data: 8
+Command: POST_BLIND, Data: 
+Command: CARD, Data: 8
+Command: CARD, Data: 3
